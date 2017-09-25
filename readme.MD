@@ -1,0 +1,2 @@
+- Project will run on http://localhost:9001
+- taking a shortcut with css, not using webpack loaders to save time
