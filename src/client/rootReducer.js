@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
-import phq9Form from './reducers/phq9Form';
+import phq9Answers from './reducers/phq9';
 
 export default combineReducers({
-  phq9Form
+  phq9Answers
 });

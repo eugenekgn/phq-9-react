@@ -5,7 +5,7 @@ export default {
   devtools: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    path.join(__dirname, 'src/client/index.js')
+    path.join(__dirname, 'src/client/types.js')
   ],
   output: {
     path: '/',

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import FormHeader from '../../common/form/FormHeader';
 import {connect} from 'react-redux';
 import FormQuestion from "../../common/form/FormQuestion";
+import {setAnswer} from '../../actions/phq9';
 import data from './data';
 import shortid from 'shortid';
 
@@ -10,17 +11,18 @@ class Phq9Page extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
-
     this.onChange = this.onChange.bind(this);
+    this.buildQuestions = this.buildQuestions.bind(this);
   }
 
   onChange(e) {
-    this.setState({[e.target.name]: e.target.value});
+    this.props.setAnswer({
+      [e.target.name]: parseInt(e.target.value, 10)
+    });
   }
 
-  render() {
-    const questions = data.questions.map(qc =>
+  buildQuestions(questions){
+   return questions.map(qc =>
       <FormQuestion
         key={shortid.generate()}
         number={qc.questionNum}
@@ -28,6 +30,9 @@ class Phq9Page extends Component {
         type="radio"
         answers={qc.answers}
         onChange={this.onChange}/>);
+  }
+
+  render() {
 
     return (
       <div className="container">
@@ -44,7 +49,7 @@ class Phq9Page extends Component {
           <div className="col-md-1">More than half the days</div>
           <div className="col-md-1">Nearly every day</div>
         </div>
-        {questions}
+        {this.buildQuestions(data.questions)}
 
         <div className="row form-answers">
           <div className="col-md-2 col-md-offset-6">
@@ -81,10 +86,13 @@ class Phq9Page extends Component {
             your
             work, take care of things at home, or get along with other people?
           </p>
-          <label className="checkbox-inline"><input className="diff-input" type="checkbox" value=""/>Not difficult at all</label>
-          <label className="checkbox-inline"><input className="diff-input" type="checkbox" value=""/>Somewhat difficult</label>
-          <label className="checkbox-inline"><input className="diff-input" type="checkbox" value=""/>Very difficult</label>
-          <label className="checkbox-inline"><input className="diff-input" type="checkbox" value=""/>Extreme difficult</label>
+          <label className="checkbox-inline"><input className="diff-input" type="radio" value=""/>Not difficult at
+            all</label>
+          <label className="checkbox-inline"><input className="diff-input" type="radio" value=""/>Somewhat
+            difficult</label>
+          <label className="checkbox-inline"><input className="diff-input" type="radio" value=""/>Very difficult</label>
+          <label className="checkbox-inline"><input className="diff-input" type="radio" value=""/>Extreme
+            difficult</label>
         </div>
         <footer>
           Developed by Drs. Robert L. Spitzer, Janet B.W. Williams, Kurt Kroenke and colleagues, with an educational
@@ -98,10 +106,11 @@ class Phq9Page extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
-    state: state.userAnswers
-  }
+    state: state.phq9Answers
+}
 };
 
-export default connect(mapStateToProps, {})(Phq9Page);
+export default connect(mapStateToProps, {setAnswer})(Phq9Page);
 

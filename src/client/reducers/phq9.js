@@ -1,15 +1,11 @@
-import shortid from 'shortid';
-import {MARK_ANSWER} from '../actions';
+import {MARK_ANSWER} from '../actions/types';
 
-const initialState = {};
 
 export default (state = [], action = {}) => {
+  console.log('reducer', action);
   switch (action.type) {
     case MARK_ANSWER:
-      return [
-
-
-      ];
+      return Object.assign({}, state, action.answer);
 
     default:
       return state;

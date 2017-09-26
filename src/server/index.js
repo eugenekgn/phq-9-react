@@ -34,8 +34,6 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './index.html'));
 });
 
-app.use('/static', express.static(path.join(__dirname, '../../style')));
-
 app.listen(9001, () => {
   console.log('Running on port', 9001)
 });

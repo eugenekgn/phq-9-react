@@ -9,7 +9,10 @@ const buildAnswers = (number, answers, onChange) => {
 
     builtAnswers.push(
       <div key={`${questionNumPrefix}${index}`} className="col-md-1 form-radio" onChange={onChange}>
-        <input key={`q${questionNumPrefix}${index}`} type="radio" name={questionNumPrefix} value={index}/> {index}
+        <input
+          key={`q${questionNumPrefix}${index}`}
+          type="radio" name={questionNumPrefix}
+          value={index}/> {index}
       </div>)
   }
   return builtAnswers;
