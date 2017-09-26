@@ -61,9 +61,9 @@ strong.plus {
 body .last-question {
     font-weight: bold;
     text-align: center;
-    margin: auto;
     border-bottom: 1px solid black;
     padding: 10px 0 35px 0px;
+    margin-bottom: 100px;
 }
 
 .diff-input {
@@ -80,4 +80,5 @@ body .last-question p {
 
 footer {
     font-size: 12px;
+    text-align: center;
 }
