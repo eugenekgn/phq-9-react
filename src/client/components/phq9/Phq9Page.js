@@ -12,7 +12,7 @@ class Phq9Page extends Component {
     super(props);
 
     this.onChange = this.onChange.bind(this);
-    this.buildQuestions = this.buildQuestions.bind(this);
+    this.renderQuestions = this.renderQuestions.bind(this);
   }
 
   onChange(e) {
@@ -21,20 +21,38 @@ class Phq9Page extends Component {
     });
   }
 
-  buildQuestions(questions){
-   return questions.map(qc =>
+  renderQuestions(questions, selectedItems = {}) {
+    return questions.map(qc =>
       <FormQuestion
         key={shortid.generate()}
         number={qc.questionNum}
         questionText={qc.questionText}
         type="radio"
         answers={qc.answers}
+        selectedItem={selectedItems[`question${qc.questionNum}`]}
         onChange={this.onChange}/>);
   }
 
-  render() {
 
+  countTotal(answers) {
+    const nameMap = ['zeroCount', 'oneCount', 'twoCount', 'threeCount'];
+
+    return Object
+      .values(answers)
+      .reduce((accum, curr) => {
+        if (curr > 0) {
+          const sumPer = accum[nameMap[curr]] + curr;
+          accum[nameMap[curr]] = sumPer;
+          accum.total = accum.total + sumPer;
+        }
+        return accum;
+      }, {oneCount: 0, twoCount: 0, threeCount: 0, total: 0});
+  }
+
+  render() {
+    const {oneCount, twoCount, threeCount, total} = this.countTotal(this.props.answers);
     return (
+
       <div className="container">
         <FormHeader header={data.header}/>
         <div className="row form-sub-header">
@@ -49,26 +67,26 @@ class Phq9Page extends Component {
           <div className="col-md-1">More than half the days</div>
           <div className="col-md-1">Nearly every day</div>
         </div>
-        {this.buildQuestions(data.questions)}
+        {this.renderQuestions(data.questions, this.props.answers)}
 
         <div className="row form-answers">
           <div className="col-md-2 col-md-offset-6">
             <label className="office-label">For Office Use Only</label>
           </div>
           <div className="col-md-1">
-            <input className="count" type="text" name="country" value="0" readonly/>
+            <input className="count" type="text" name="country" value="0" readOnly/>
             <strong className="plus">+</strong>
           </div>
           <div className="col-md-1">
-            <input className="count" type="text" name="country" value="0" readonly/>
+            <input className="count" type="text" name="country" value={oneCount} readOnly/>
             <strong className="plus">+</strong>
           </div>
           <div className="col-md-1">
-            <input className="count" type="text" name="country" value="0" readonly/>
+            <input className="count" type="text" name="country" value={twoCount} readOnly/>
             <strong className="plus">+</strong>
           </div>
           <div className="col-md-1">
-            <input className="count" type="text" name="country" value="0" readonly/>
+            <input className="count" type="text" name="country" value={threeCount} readOnly/>
           </div>
         </div>
         <div className="row total-answer">
@@ -76,7 +94,7 @@ class Phq9Page extends Component {
             <label className="office-label">= Total Score</label>
           </div>
           <div className="col-md-1">
-            <input className="count" type="text" name="country" value="0" readonly/>
+            <input className="count" type="text" name="country" value={total} readOnly/>
           </div>
         </div>
 
@@ -106,10 +124,9 @@ class Phq9Page extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
-    state: state.phq9Answers
-}
+    answers: state.phq9Answers
+  }
 };
 
 export default connect(mapStateToProps, {setAnswer})(Phq9Page);
