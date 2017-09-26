@@ -1,3 +1,83 @@
 body {
-    background-color: red;
+
+}
+
+/* header */
+
+body .page-header {
+    background-color: darkblue;
+}
+
+body .page-header h1 {
+    color: #ffffff;
+    text-align: center;
+}
+
+body .form-sub-header {
+    border-bottom: 1px solid black;
+    padding-bottom: 20px;
+    margin: 0;
+}
+
+body .form-question {
+    padding: 20px 0 20px 0;
+    border-bottom: 1px solid black;
+    margin: 0;
+}
+
+body .form-question .form-radio {
+    text-align: center;
+    font-weight: bold;
+}
+
+body .form-answers {
+    padding: 30px 0 0 0;
+}
+
+body .office-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.count {
+    font-weight: bold;
+    width: 40px;
+    border: none;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+strong.plus {
+    padding: 0 15px;
+    position: absolute;
+}
+
+.total-answer {
+    padding-bottom: 50px;
+    border-bottom: 1px solid black;
+}
+
+body .last-question {
+    font-weight: bold;
+    text-align: center;
+    margin: auto;
+    border-bottom: 1px solid black;
+    padding: 10px 0 35px 0px;
+}
+
+.diff-input {
+    margin: 20px 45px !important;
+}
+
+body .last-question label {
+    font-weight: bold;
+    margin-right: 70px;
+}
+
+body .last-question p {
+}
+
+footer {
+    font-size: 12px;
 }

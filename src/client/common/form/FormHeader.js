@@ -5,7 +5,12 @@ class FormHeader extends Component {
   render() {
     const {header} = this.props;
     return (
-      <div>{header.text}</div>
+      <div className="page-header">
+        <h1 className={classnames({'text-uppercase': header.options.allCaps})}>{header.text}
+          <br/>
+          {header.subText}
+        </h1>
+      </div>
     );
   }
 }
